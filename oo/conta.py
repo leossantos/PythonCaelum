@@ -1,13 +1,56 @@
 from historico import Historico
 
 class Conta:
-    
+
+    identificador = 0
+    __slots__ = ['_numero', '_titular', '_saldo', '_limite', '_historico', '_identificador']
+
     def	__init__(self, numero, cliente, saldo, limite):
-        self.numero = numero
-        self.titular = cliente
-        self.saldo = saldo
-        self.limite = limite
-        self.historico = Historico()
+        self._numero = numero
+        self._titular = cliente
+        self._saldo = saldo
+        self._limite = limite
+        self._historico = Historico()
+        self._identificador = Conta.identificador
+        Conta.identificador += 1
+
+    @property
+    def saldo(self):
+        return self._saldo				
+
+    @saldo.setter
+    def saldo(self,	saldo):
+        if (saldo < 0):
+            print("saldo não pode ser negativo")
+        else:
+            self._saldo	= saldo
+
+    @property
+    def numero(self):
+        return self._numero
+    
+    @property
+    def titular(self):
+        return self._titular
+
+    @property
+    def limite(self):
+        return self._limite
+    
+    @limite.setter
+    def limite(self, limite):
+        if (limite < 0):
+            print("limite não pode ser negativo")
+        else:
+            self._limite = limite
+
+    @property
+    def historico(self):
+        return self._historico
+
+    @property
+    def id(self):
+        return self._identificador
 
     def	deposita(self, valor):
         self.historico.transacoes.append("depositou {}".format(valor))
@@ -23,7 +66,7 @@ class Conta:
 
     def	extrato(self):
         print("Nome: {} {}".format(self.titular.nome, self.titular.sobrenome))
-        print("numero: {} \nsaldo: {}".format(self.numero, self.saldo))
+        print("id: {}   numero: {} \nsaldo: {}".format(self.id, self.numero, self.saldo))
         self.historico.transacoes.append("tirou extrato - saldo de {}".format(self.saldo))
 
     def	transfere_para(self, destino, valor):
