@@ -4,6 +4,7 @@ from oo.historico import Historico
 class Conta:
     identificador = 0
     __slots__ = ['_numero', '_titular', '_saldo', '_limite', '_historico', '_identificador']
+
     # Construtor
     def __init__(self, numero, cliente, saldo, limite=1000.0):
         self._numero = numero
@@ -13,6 +14,9 @@ class Conta:
         self._historico = Historico()
         self._identificador = Conta.identificador
         Conta.identificador += 1
+
+    def __str__(self):
+        return f'<< Conta: {self._numero} Saldo: {self._saldo} >>'
 
     @staticmethod
     def codigo_banco():
