@@ -1,7 +1,8 @@
-from cpf import CPF
+import requests
+from busca_endereco import BuscaEndereco
 
 
-num_cpf = '23455678991'
-cpf = CPF(num_cpf)
+cep = "01001000"
+objeto_cep = BuscaEndereco(cep)
 
-print(cpf)
+print(objeto_cep.acessa_via_cep())
